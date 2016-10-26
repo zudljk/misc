@@ -1,5 +1,5 @@
 #!/usr/bin/python
-# -*- coding: UTF-8 -*-
+#coding: utf8
 
 from feedgen.feed import FeedGenerator
 from xml.sax.saxutils import escape
@@ -22,9 +22,17 @@ fg.link(href=url+"watchlater.xml", rel="self")
 
 for top, dirs, files in os.walk(dir):
     for file in files:
-        fe = fg.add_entry()
-        fe.id(url+urllib.quote_plus(file))
-        fe.title(escape(os.path.basename(file)))
-        fe.link(href=url+urllib.quote_plus(file), rel="self")
+        p = urllib.quote(os.path.basename(top))
+        f = urllib.quote(file)
+        s = file.replace('’',"'").decode('utf8')
+        size = os.stat(os.path.join(top, file)).st_size
+        if not s == "ARCHIVE" and not s == "watchlater.xml":
+                fe = fg.add_entry()
+                fe.title(s)
+                fe.id(url+p+"/"+f)
+                fe.link(href=url+p+"/"+f, rel="self")
+                fe.enclosure(url+p+"/"+f, str(size), 'video/mp4')
+                fg.rss_str()
 
+print fg.rss_str(pretty=True)
 fg.rss_file(os.path.join(dir,feedfile))
