@@ -42,5 +42,5 @@ for top, dirs, files in os.walk(dir):
                 fe.enclosure(url+p+"/"+f, str(size), 'video'+format.replace(".","/"))
                 fg.rss_str()
 
-print fg.rss_str(pretty=True)
+#print fg.rss_str(pretty=True)
 fg.rss_file(os.path.join(dir,feedfile))
