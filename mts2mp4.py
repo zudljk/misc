@@ -24,7 +24,7 @@ for f in stdin.readlines():
             for top, dirs, files in walk(f):
                 for g in files:
                     b, extension = path.splitext(g)
-                    if upper(e) == '.MTS':
+                    if upper(extension) == '.MTS':
                         wrapAsMP4(path.join(top, g))
     else:
         wrapAsMP4(f)
