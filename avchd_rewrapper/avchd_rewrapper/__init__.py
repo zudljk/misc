@@ -17,18 +17,17 @@ def wrap_as_mp4(mtsfile, metadata, outputdir=None):
         params.append(key+'="'+value+'"')
     params.append(mp4file)
 
-    proc = Popen(params)
+    proc = Popen(args=params, stdout=PIPE)
     so, se = proc.communicate(PIPE)
     for i in so.splitlines():
         print i
-    proc.wait()
 
 
 def get_user_full_name(loginname):
-    proc = Popen(['finger', '-s', loginname])
-    sti, ste = proc.communicate(PIPE)
+    proc = Popen(args=['finger', '-s', loginname], stdout=PIPE)
+    sti, ste = proc.communicate()
     fullname = loginname
-    for i in sti.splitlines():
+    for i in sti:
         logon, fullname, rest = split(i, None, 2)
     return fullname
 
