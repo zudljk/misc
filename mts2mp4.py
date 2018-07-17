@@ -5,7 +5,7 @@ from string import upper, split
 from time import localtime
 
 
-def wrap_as_mp4(mtsfile, metadata={}):
+def wrap_as_mp4(mtsfile, metadata):
     mp4file, mts = path.splitext(mtsfile)
     params = ["ffmpeg", "-i", mtsfile, "-vcodec", "copy", "-acodec", "copy"]
     for key, value in metadata:
@@ -30,25 +30,32 @@ def get_user_full_name(loginname):
     return fullname
 
 
+def wrap_avchd_dir(avchd_dir):
+    for top, dirs, files in walk(path.join(avchd_dir, "BDMV", "STREAM")):
+        for g in files:
+            wrap_mts_file(g)
+
+
+def wrap_mts_file(mts_file):
+    track, extension = path.splitext(path.basename(mts_file))
+    if upper(extension) == '.MTS':
+        try:
+            track = int(track)
+        except ValueError:
+            pass
+        wrap_as_mp4(mts_file, {
+            "title": path.basename(path.dirname(mts_file)),
+            "author": u,
+            "year": localtime(stat(mts_file).st_mtime).tm_year,
+            "track": track
+        })
+
+
+u = get_user_full_name(environ["USER"])
+
 for f in stdin.readlines():
     if path.isdir(f):
         if path.basename(f) == 'AVCHD':
-            dirmetadata = {
-                "title": path.basename(path.dirname(f)),
-                "author": get_user_full_name(environ['USER']),
-            }
-            f = path.join(f, "BDMV", "STREAM")
-            for top, dirs, files in walk(f):
-                for g in files:
-                    prefix, extension = path.splitext(g)
-                    dirmetadata["track"] = prefix
-                    dirmetadata["year"] = localtime(stat(g).st_mtime).tm_year
-                    if upper(extension) == '.MTS':
-                        wrap_as_mp4(path.join(top, g), dirmetadata)
+            wrap_avchd_dir(f)
     else:
-        dirmetadata = {
-            "title": path.basename(f),
-            "author": get_user_full_name(environ['USER']),
-            "year": localtime(stat(f).st_mtime).tm_year
-        }
-        wrap_as_mp4(f)
+        wrap_mts_file(f)
