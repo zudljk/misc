@@ -1,6 +1,6 @@
-from os import path, walk, remove, environ, stat
+from os import path, walk, environ, stat
 from subprocess import Popen, PIPE
-from string import upper, split
+from string import upper, split, strip
 from time import localtime
 
 
@@ -18,18 +18,21 @@ def wrap_as_mp4(mtsfile, metadata, outputdir=None):
     params.append(mp4file)
 
     proc = Popen(args=params, stdout=PIPE)
-    so, se = proc.communicate(PIPE)
-    for i in so.splitlines():
-        print i
+    so, se = proc.communicate()
+    for line in so.split('\n'):
+        print line
+    for line in se.split('\n'):
+        print line
 
 
 def get_user_full_name(loginname):
     proc = Popen(args=['finger', '-s', loginname], stdout=PIPE)
-    sti, ste = proc.communicate()
+    so, se = proc.communicate()
     fullname = loginname
-    for i in sti:
-        logon, fullname, rest = split(i, None, 2)
-    return fullname
+    for line in so.split('\n'):
+        if len(line) > 0:
+            logon, fullname, rest = line.split('  ', 2)
+    return strip(fullname)
 
 
 def wrap_avchd_dir(avchd_dir):
