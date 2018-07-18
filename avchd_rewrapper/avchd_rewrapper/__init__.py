@@ -1,28 +1,29 @@
-from os import path, walk, environ, stat
+from os import path, walk, environ, stat, mkdir
 from subprocess import Popen, PIPE
-from string import upper, split, strip
+from string import upper, strip
 from time import localtime
-
+from logging import error
 
 def wrap_as_mp4(mtsfile, metadata, outputdir=None):
     if outputdir is None:
         outputdir = path.dirname(mtsfile)
 
-    mp4file, mts = path.splitext(mtsfile)
-    mp4file = path.join(outputdir, path.basename(mp4file))+'mp4'
+    #if not path.isdir(outputdir):
+    #    mkdir(outputdir)
 
-    params = ["ffmpeg", "-i", mtsfile, "-vcodec", "copy", "-acodec", "copy"]
-    for key, value in metadata:
+    mp4file, mts = path.splitext(mtsfile)
+    mp4file = path.join(outputdir, path.basename(mp4file))+'.mp4'
+
+    params = ["ffmpeg", "-i", mtsfile, "-vcodec", "copy", "-acodec", "copy", "-n", "-nostats", "-loglevel", "error"]
+    for key, value in metadata.iteritems():
         params.append("-metadata")
-        params.append(key+'="'+value+'"')
+        params.append(key+'='+str(value))
     params.append(mp4file)
 
-    proc = Popen(args=params, stdout=PIPE)
+    proc = Popen(args=params, stderr=PIPE)
     so, se = proc.communicate()
-    for line in so.split('\n'):
-        print line
-    for line in se.split('\n'):
-        print line
+    if len(se) > 0:
+        raise RuntimeError(se)
 
 
 def get_user_full_name(loginname):
@@ -38,14 +39,17 @@ def get_user_full_name(loginname):
 def wrap_avchd_dir(avchd_dir):
     user = get_user_full_name(environ["USER"])
     outdir = path.join(path.dirname(avchd_dir), "mp4")
+    title = path.basename(path.dirname(avchd_dir))
     for top, dirs, files in walk(path.join(avchd_dir, "BDMV", "STREAM")):
         for g in files:
-            wrap_mts_file(g, outdir, user)
+            wrap_mts_file(path.join(top, g), outdir, user, title)
 
 
-def wrap_mts_file(mts_file, outputdir=None, user=None):
+def wrap_mts_file(mts_file, outputdir=None, user=None, title=None):
     if user is None:
         user = get_user_full_name(environ["USER"])
+    if title is None:
+        title = path.basename(path.dirname(mts_file))
     track, extension = path.splitext(path.basename(mts_file))
     if upper(extension) == '.MTS':
         try:
@@ -53,16 +57,22 @@ def wrap_mts_file(mts_file, outputdir=None, user=None):
         except ValueError:
             pass
         wrap_as_mp4(mts_file, {
-            "title": path.basename(path.dirname(mts_file)),
+            "title": title,
             "author": user,
+            "artist": user,
             "year": localtime(stat(mts_file).st_mtime).tm_year,
-            "track": track
+            "date": localtime(stat(mts_file).st_mtime).tm_year,
+            "track": track+1
         }, outputdir)
 
 
 def wrap_to_mp4(file_or_dir):
-    if path.isdir(file_or_dir):
-        if path.basename(file_or_dir) == 'AVCHD':
-            wrap_avchd_dir(file_or_dir)
-    else:
-        wrap_mts_file(file_or_dir)
+    try:
+        if path.isdir(file_or_dir):
+            if path.basename(file_or_dir) == 'AVCHD':
+                wrap_avchd_dir(file_or_dir)
+        else:
+            wrap_mts_file(file_or_dir)
+    except Exception as e:
+        error(e.message)
+        raise e
