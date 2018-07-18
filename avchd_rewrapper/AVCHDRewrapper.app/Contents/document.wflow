@@ -163,9 +163,6 @@
 					<key>COMMAND_STRING</key>
 					<string>from sys import stdin
 from avchd_rewrapper import wrap_to_mp4
-import logging
-
-#logging.getLogger('root').addHandler(logging.FileHandler('avchd_rewrapper.log'))
 
 for f in stdin:
 	wrap_to_mp4(f)

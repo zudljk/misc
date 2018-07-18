@@ -1,8 +1,8 @@
-from os import path, walk, environ, stat, mkdir
+from os import path, walk, environ, stat, mkdir, remove
 from subprocess import Popen, PIPE
 from string import upper, strip
 from time import localtime
-from logging import error
+import logging
 
 def wrap_as_mp4(mtsfile, metadata, outputdir=None):
     if outputdir is None:
@@ -67,12 +67,20 @@ def wrap_mts_file(mts_file, outputdir=None, user=None, title=None):
 
 
 def wrap_to_mp4(file_or_dir):
+
+    logger = logging.getLogger('avchd_rewrapper')
+    logfilename = path.join(path.dirname(file_or_dir), 'avchd_rewrapper.log')
+    logfile = logging.FileHandler(logfilename)
+    logger.addHandler(logfile)
+
     try:
         if path.isdir(file_or_dir):
             if path.basename(file_or_dir) == 'AVCHD':
                 wrap_avchd_dir(file_or_dir)
         else:
             wrap_mts_file(file_or_dir)
+        if path.getsize(logfilename) == 0:
+            remove(logfilename)
     except Exception as e:
-        error(e.message)
+        logger.error(e.message)
         raise e
