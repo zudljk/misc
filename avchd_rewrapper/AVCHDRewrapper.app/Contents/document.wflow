@@ -21,108 +21,6 @@
 					<true/>
 					<key>Types</key>
 					<array>
-						<string>com.apple.cocoa.path</string>
-					</array>
-				</dict>
-				<key>AMActionVersion</key>
-				<string>1.1.2</string>
-				<key>AMApplication</key>
-				<array>
-					<string>Finder</string>
-				</array>
-				<key>AMParameterProperties</key>
-				<dict>
-					<key>fileNames</key>
-					<dict/>
-				</dict>
-				<key>AMProvides</key>
-				<dict>
-					<key>Container</key>
-					<string>List</string>
-					<key>Types</key>
-					<array>
-						<string>com.apple.cocoa.path</string>
-					</array>
-				</dict>
-				<key>ActionBundlePath</key>
-				<string>/System/Library/Automator/Get Specified Finder Items.action</string>
-				<key>ActionName</key>
-				<string>Angegebene Finder-Objekte abfragen</string>
-				<key>ActionParameters</key>
-				<dict>
-					<key>fileNames</key>
-					<array>
-						<string>~/Desktop/20111029/AVCHD</string>
-					</array>
-				</dict>
-				<key>BundleIdentifier</key>
-				<string>com.apple.Automator.SpecifiedFiles</string>
-				<key>CFBundleVersion</key>
-				<string>1.1.2</string>
-				<key>CanShowSelectedItemsWhenRun</key>
-				<false/>
-				<key>CanShowWhenRun</key>
-				<true/>
-				<key>Category</key>
-				<array>
-					<string>AMCategoryFilesAndFolders</string>
-				</array>
-				<key>Class Name</key>
-				<string>SpecifiedFilesAction</string>
-				<key>InputUUID</key>
-				<string>3AF98CF7-2CBC-4A3E-9E41-7F349B336880</string>
-				<key>Keywords</key>
-				<array>
-					<string>Datei</string>
-					<string>Auswählen</string>
-					<string>Suchen</string>
-					<string>Abfragen</string>
-				</array>
-				<key>OutputUUID</key>
-				<string>23DDC600-12FB-4628-84C3-0241358A0360</string>
-				<key>UUID</key>
-				<string>A55EB633-CB3A-417A-9A13-9D806F7D757B</string>
-				<key>UnlocalizedApplications</key>
-				<array>
-					<string>Finder</string>
-				</array>
-				<key>arguments</key>
-				<dict>
-					<key>0</key>
-					<dict>
-						<key>default value</key>
-						<array/>
-						<key>name</key>
-						<string>fileNames</string>
-						<key>required</key>
-						<string>0</string>
-						<key>type</key>
-						<string>0</string>
-						<key>uuid</key>
-						<string>0</string>
-					</dict>
-				</dict>
-				<key>isViewVisible</key>
-				<true/>
-				<key>location</key>
-				<string>534.000000:700.000000</string>
-				<key>nibPath</key>
-				<string>/System/Library/Automator/Get Specified Finder Items.action/Contents/Resources/German.lproj/main.nib</string>
-			</dict>
-			<key>isViewVisible</key>
-			<true/>
-		</dict>
-		<dict>
-			<key>action</key>
-			<dict>
-				<key>AMAccepts</key>
-				<dict>
-					<key>Container</key>
-					<string>List</string>
-					<key>Optional</key>
-					<true/>
-					<key>Types</key>
-					<array>
 						<string>com.apple.cocoa.string</string>
 					</array>
 				</dict>
@@ -161,11 +59,23 @@
 				<key>ActionParameters</key>
 				<dict>
 					<key>COMMAND_STRING</key>
-					<string>from sys import stdin
+					<string>
+import sys
 from avchd_rewrapper import wrap_to_mp4
 
-for f in stdin:
-	wrap_to_mp4(f)
+try:
+    n = 0
+
+    for f in sys.stdin:
+        n += 1
+        wrap_to_mp4(f.strip())
+
+    assert n &gt; 0, 'No files given'
+
+    print '%d file(s) rewrapped' % n
+
+except Exception as e:
+    print e.message
 </string>
 					<key>CheckedForUserDefaultShell</key>
 					<true/>
@@ -190,10 +100,8 @@ for f in stdin:
 				</array>
 				<key>Class Name</key>
 				<string>RunShellScriptAction</string>
-				<key>IgnoresInput</key>
-				<true/>
 				<key>InputUUID</key>
-				<string>7A784A3A-28EF-4F77-81D1-3CF37C5D1F33</string>
+				<string>A2CB1A85-5906-45D2-9EA3-73D47418B3D5</string>
 				<key>Keywords</key>
 				<array>
 					<string>Shell</string>
@@ -203,11 +111,9 @@ for f in stdin:
 					<string>Unix</string>
 				</array>
 				<key>OutputUUID</key>
-				<string>8ADDCACB-A676-4073-AC81-98B662472FE2</string>
-				<key>ShowWhenRun</key>
-				<false/>
+				<string>0A995652-ACDF-4976-83FA-D7EF0496458E</string>
 				<key>UUID</key>
-				<string>3833A8EE-8AA9-4FF1-B296-0BF27B69EBA9</string>
+				<string>8A353ED0-AB88-43EE-ACEE-008E5F1A6494</string>
 				<key>UnlocalizedApplications</key>
 				<array>
 					<string>Automator</string>
@@ -280,12 +186,122 @@ for f in stdin:
 						<string>4</string>
 					</dict>
 				</dict>
+				<key>conversionLabel</key>
+				<integer>0</integer>
 				<key>isViewVisible</key>
 				<true/>
 				<key>location</key>
-				<string>534.000000:461.000000</string>
+				<string>526.500000:838.000000</string>
 				<key>nibPath</key>
 				<string>/System/Library/Automator/Run Shell Script.action/Contents/Resources/German.lproj/main.nib</string>
+			</dict>
+			<key>isViewVisible</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>action</key>
+			<dict>
+				<key>AMAccepts</key>
+				<dict>
+					<key>Container</key>
+					<string>List</string>
+					<key>Optional</key>
+					<false/>
+					<key>Types</key>
+					<array>
+						<string>*</string>
+					</array>
+				</dict>
+				<key>AMActionVersion</key>
+				<string>v.1.0.2</string>
+				<key>AMApplication</key>
+				<array>
+					<string>Automator</string>
+				</array>
+				<key>AMParameterProperties</key>
+				<dict>
+					<key>variableUUID</key>
+					<dict>
+						<key>isPathPopUp</key>
+						<false/>
+						<key>selectedVariableUUID</key>
+						<string>291B8660-0ACA-4D6C-A92F-8234C4426D03</string>
+					</dict>
+				</dict>
+				<key>AMProvides</key>
+				<dict>
+					<key>Container</key>
+					<string>List</string>
+					<key>Types</key>
+					<array>
+						<string>*</string>
+					</array>
+				</dict>
+				<key>AMRequiredResources</key>
+				<array/>
+				<key>ActionBundlePath</key>
+				<string>/System/Library/Automator/Set Value of Variable.action</string>
+				<key>ActionName</key>
+				<string>Wert der Variablen festlegen</string>
+				<key>ActionParameters</key>
+				<dict>
+					<key>variableUUID</key>
+					<string>291B8660-0ACA-4D6C-A92F-8234C4426D03</string>
+				</dict>
+				<key>BundleIdentifier</key>
+				<string>com.apple.Automator.Set_Value_of_Variable</string>
+				<key>CFBundleVersion</key>
+				<string>1.0.2</string>
+				<key>CanShowSelectedItemsWhenRun</key>
+				<true/>
+				<key>CanShowWhenRun</key>
+				<true/>
+				<key>Category</key>
+				<array>
+					<string>AMCategoryUtilities</string>
+				</array>
+				<key>Class Name</key>
+				<string>Set_Value_of_Variable</string>
+				<key>InputUUID</key>
+				<string>AEC2F1DA-5C6B-477D-BBA8-689EFC936216</string>
+				<key>Keywords</key>
+				<array>
+					<string>Variable</string>
+					<string>Einbinden</string>
+					<string>Eingabe</string>
+					<string>Ausgabe</string>
+					<string>Speicher</string>
+				</array>
+				<key>OutputUUID</key>
+				<string>4BA522DA-628E-4603-B406-A2A01EC1F18A</string>
+				<key>UUID</key>
+				<string>EF9DAA0B-2D4C-4D9E-B47A-C32466B9757B</string>
+				<key>UnlocalizedApplications</key>
+				<array>
+					<string>Automator</string>
+				</array>
+				<key>arguments</key>
+				<dict>
+					<key>0</key>
+					<dict>
+						<key>default value</key>
+						<string></string>
+						<key>name</key>
+						<string>variableUUID</string>
+						<key>required</key>
+						<string>0</string>
+						<key>type</key>
+						<string>0</string>
+						<key>uuid</key>
+						<string>0</string>
+					</dict>
+				</dict>
+				<key>isViewVisible</key>
+				<true/>
+				<key>location</key>
+				<string>526.500000:494.000000</string>
+				<key>nibPath</key>
+				<string>/System/Library/Automator/Set Value of Variable.action/Contents/Resources/Base.lproj/main.nib</string>
 			</dict>
 			<key>isViewVisible</key>
 			<true/>
@@ -303,7 +319,7 @@ for f in stdin:
 					<array/>
 				</dict>
 				<key>AMActionVersion</key>
-				<string>1.0</string>
+				<string>v.1.0</string>
 				<key>AMApplication</key>
 				<array>
 					<string>Automator</string>
@@ -314,7 +330,7 @@ for f in stdin:
 					<dict>
 						<key>tokenizedValue</key>
 						<array>
-							<string>Konvertierung abgeschlossen.</string>
+							<string>$(291B8660-0ACA-4D6C-A92F-8234C4426D03)</string>
 						</array>
 					</dict>
 					<key>subtitle</key>
@@ -341,7 +357,7 @@ for f in stdin:
 				<key>ActionParameters</key>
 				<dict>
 					<key>message</key>
-					<string>Konvertierung abgeschlossen.</string>
+					<string>$(291B8660-0ACA-4D6C-A92F-8234C4426D03)</string>
 					<key>subtitle</key>
 					<string></string>
 					<key>title</key>
@@ -420,7 +436,7 @@ for f in stdin:
 				<key>isViewVisible</key>
 				<true/>
 				<key>location</key>
-				<string>534.000000:224.000000</string>
+				<string>526.500000:390.000000</string>
 				<key>nibPath</key>
 				<string>/System/Library/Automator/Display Notification.action/Contents/Resources/Base.lproj/main.nib</string>
 			</dict>
@@ -430,21 +446,34 @@ for f in stdin:
 	</array>
 	<key>connectors</key>
 	<dict>
-		<key>9EE95BA6-F322-499E-A661-B5C3462A78BB</key>
+		<key>2FB230A0-3440-4DED-9B23-6D075641160C</key>
 		<dict>
 			<key>from</key>
-			<string>3833A8EE-8AA9-4FF1-B296-0BF27B69EBA9 - 3833A8EE-8AA9-4FF1-B296-0BF27B69EBA9</string>
+			<string>EF9DAA0B-2D4C-4D9E-B47A-C32466B9757B - EF9DAA0B-2D4C-4D9E-B47A-C32466B9757B</string>
 			<key>to</key>
 			<string>68E00115-D3C9-4898-BF29-FBCDFEEBA972 - 68E00115-D3C9-4898-BF29-FBCDFEEBA972</string>
 		</dict>
-		<key>EB0BFC26-BE4C-4134-8E52-0E6145D82FC8</key>
+		<key>50793F31-AF86-4E95-989F-24B8A627411D</key>
 		<dict>
 			<key>from</key>
-			<string>A55EB633-CB3A-417A-9A13-9D806F7D757B - A55EB633-CB3A-417A-9A13-9D806F7D757B</string>
+			<string>8A353ED0-AB88-43EE-ACEE-008E5F1A6494 - 8A353ED0-AB88-43EE-ACEE-008E5F1A6494</string>
 			<key>to</key>
-			<string>3833A8EE-8AA9-4FF1-B296-0BF27B69EBA9 - 3833A8EE-8AA9-4FF1-B296-0BF27B69EBA9</string>
+			<string>EF9DAA0B-2D4C-4D9E-B47A-C32466B9757B - EF9DAA0B-2D4C-4D9E-B47A-C32466B9757B</string>
 		</dict>
 	</dict>
+	<key>variables</key>
+	<array>
+		<dict>
+			<key>UUID</key>
+			<string>291B8660-0ACA-4D6C-A92F-8234C4426D03</string>
+			<key>identifier</key>
+			<string>com.apple.Automator.Variable.Text</string>
+			<key>name</key>
+			<string>result</string>
+			<key>value</key>
+			<string></string>
+		</dict>
+	</array>
 	<key>workflowMetaData</key>
 	<dict>
 		<key>workflowTypeIdentifier</key>

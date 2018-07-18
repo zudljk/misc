@@ -8,8 +8,11 @@ def wrap_as_mp4(mtsfile, metadata, outputdir=None):
     if outputdir is None:
         outputdir = path.dirname(mtsfile)
 
-    #if not path.isdir(outputdir):
-    #    mkdir(outputdir)
+    try:
+        if not path.isdir(outputdir):
+            mkdir(outputdir)
+    except OSError:
+        raise RuntimeError('Error creating %s' % outputdir)
 
     mp4file, mts = path.splitext(mtsfile)
     mp4file = path.join(outputdir, path.basename(mp4file))+'.mp4'
@@ -50,6 +53,8 @@ def wrap_mts_file(mts_file, outputdir=None, user=None, title=None):
         user = get_user_full_name(environ["USER"])
     if title is None:
         title = path.basename(path.dirname(mts_file))
+    if not path.exists(mts_file):
+        raise OSError('{} not found'.format(mts_file))
     track, extension = path.splitext(path.basename(mts_file))
     if upper(extension) == '.MTS':
         try:
@@ -64,6 +69,8 @@ def wrap_mts_file(mts_file, outputdir=None, user=None, title=None):
             "date": localtime(stat(mts_file).st_mtime).tm_year,
             "track": track+1
         }, outputdir)
+    else:
+        raise RuntimeError('%s is not an MTS file' % mts_file)
 
 
 def wrap_to_mp4(file_or_dir):
@@ -77,6 +84,8 @@ def wrap_to_mp4(file_or_dir):
         if path.isdir(file_or_dir):
             if path.basename(file_or_dir) == 'AVCHD':
                 wrap_avchd_dir(file_or_dir)
+            else:
+                raise RuntimeError('%s is not an AVCHD dir' % file_or_dir)
         else:
             wrap_mts_file(file_or_dir)
         if path.getsize(logfilename) == 0:
