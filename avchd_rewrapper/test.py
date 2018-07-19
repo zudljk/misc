@@ -15,4 +15,4 @@ try:
     print '%d file(s) rewrapped' % n
 
 except Exception as e:
-    print e.message
+    print str(e)

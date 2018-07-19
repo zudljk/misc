@@ -4,34 +4,33 @@ from string import upper, strip
 from time import localtime
 import logging
 
+
 def wrap_as_mp4(mtsfile, metadata, outputdir=None):
     if outputdir is None:
         outputdir = path.dirname(mtsfile)
 
-    try:
-        if not path.isdir(outputdir):
-            mkdir(outputdir)
-    except OSError:
-        raise RuntimeError('Error creating %s' % outputdir)
+    if not path.isdir(outputdir):
+        mkdir(outputdir)
 
     mp4file, mts = path.splitext(mtsfile)
     mp4file = path.join(outputdir, path.basename(mp4file))+'.mp4'
 
-    params = ["ffmpeg", "-i", mtsfile, "-vcodec", "copy", "-acodec", "copy", "-n", "-nostats", "-loglevel", "error"]
+    params = ["/usr/local/bin/ffmpeg", "-i", mtsfile, "-vcodec", "copy", "-acodec", "copy", "-n", "-nostats", "-loglevel", "error"]
     for key, value in metadata.iteritems():
         params.append("-metadata")
         params.append(key+'='+str(value))
     params.append(mp4file)
 
-    proc = Popen(args=params, stderr=PIPE)
-    so, se = proc.communicate()
-    if len(se) > 0:
-        raise RuntimeError(se)
+    try:
+        so, se = Popen(args=params, stderr=PIPE).communicate()
+        if len(se) > 0:
+            raise RuntimeError(se)
+    except Exception as e:
+        raise RuntimeError('Call to ffmpeg failed: %s' % str(e))
 
 
 def get_user_full_name(loginname):
-    proc = Popen(args=['finger', '-s', loginname], stdout=PIPE)
-    so, se = proc.communicate()
+    so, se = Popen(args=['finger', '-s', loginname], stdout=PIPE).communicate()
     fullname = loginname
     for line in so.split('\n'):
         if len(line) > 0:
@@ -91,5 +90,5 @@ def wrap_to_mp4(file_or_dir):
         if path.getsize(logfilename) == 0:
             remove(logfilename)
     except Exception as e:
-        logger.error(e.message)
+        logger.error(str(e))
         raise e

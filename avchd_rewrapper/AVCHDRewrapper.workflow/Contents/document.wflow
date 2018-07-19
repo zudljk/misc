@@ -20,6 +20,144 @@
 					<key>Optional</key>
 					<true/>
 					<key>Types</key>
+					<array/>
+				</dict>
+				<key>AMActionVersion</key>
+				<string>1.0</string>
+				<key>AMApplication</key>
+				<array>
+					<string>Automator</string>
+				</array>
+				<key>AMParameterProperties</key>
+				<dict>
+					<key>message</key>
+					<dict>
+						<key>tokenizedValue</key>
+						<array>
+							<string>Started re-wrapping video files ...</string>
+						</array>
+					</dict>
+					<key>subtitle</key>
+					<dict>
+						<key>tokenizedValue</key>
+						<array/>
+					</dict>
+					<key>title</key>
+					<dict>
+						<key>tokenizedValue</key>
+						<array>
+							<string>AVCHD ReWrapper</string>
+						</array>
+					</dict>
+				</dict>
+				<key>AMProvides</key>
+				<dict>
+					<key>Container</key>
+					<string>List</string>
+					<key>Types</key>
+					<array/>
+				</dict>
+				<key>ActionBundlePath</key>
+				<string>/System/Library/Automator/Display Notification.action</string>
+				<key>ActionName</key>
+				<string>Mitteilungen anzeigen</string>
+				<key>ActionParameters</key>
+				<dict>
+					<key>message</key>
+					<string>Started re-wrapping video files ...</string>
+					<key>subtitle</key>
+					<string></string>
+					<key>title</key>
+					<string>AVCHD ReWrapper</string>
+				</dict>
+				<key>BundleIdentifier</key>
+				<string>com.apple.Automator.Display-Notification</string>
+				<key>CFBundleVersion</key>
+				<string>1.0</string>
+				<key>CanShowSelectedItemsWhenRun</key>
+				<true/>
+				<key>CanShowWhenRun</key>
+				<false/>
+				<key>Category</key>
+				<array>
+					<string>AMCategoryUtilities</string>
+				</array>
+				<key>Class Name</key>
+				<string>AMDisplayNotificationAction</string>
+				<key>InputUUID</key>
+				<string>7BCF4AF5-739A-489F-9511-177EBCFE848F</string>
+				<key>Keywords</key>
+				<array/>
+				<key>OutputUUID</key>
+				<string>0BC5BCB8-B0ED-4977-807D-5E255E39C59B</string>
+				<key>UUID</key>
+				<string>2B916B88-83C4-4891-A278-6C054292FDF7</string>
+				<key>UnlocalizedApplications</key>
+				<array>
+					<string>Automator</string>
+				</array>
+				<key>arguments</key>
+				<dict>
+					<key>0</key>
+					<dict>
+						<key>default value</key>
+						<string></string>
+						<key>name</key>
+						<string>subtitle</string>
+						<key>required</key>
+						<string>0</string>
+						<key>type</key>
+						<string>0</string>
+						<key>uuid</key>
+						<string>0</string>
+					</dict>
+					<key>1</key>
+					<dict>
+						<key>default value</key>
+						<string></string>
+						<key>name</key>
+						<string>title</string>
+						<key>required</key>
+						<string>0</string>
+						<key>type</key>
+						<string>0</string>
+						<key>uuid</key>
+						<string>1</string>
+					</dict>
+					<key>2</key>
+					<dict>
+						<key>default value</key>
+						<string></string>
+						<key>name</key>
+						<string>message</string>
+						<key>required</key>
+						<string>0</string>
+						<key>type</key>
+						<string>0</string>
+						<key>uuid</key>
+						<string>2</string>
+					</dict>
+				</dict>
+				<key>isViewVisible</key>
+				<true/>
+				<key>location</key>
+				<string>654.500000:700.000000</string>
+				<key>nibPath</key>
+				<string>/System/Library/Automator/Display Notification.action/Contents/Resources/Base.lproj/main.nib</string>
+			</dict>
+			<key>isViewVisible</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>action</key>
+			<dict>
+				<key>AMAccepts</key>
+				<dict>
+					<key>Container</key>
+					<string>List</string>
+					<key>Optional</key>
+					<true/>
+					<key>Types</key>
 					<array>
 						<string>com.apple.cocoa.string</string>
 					</array>
@@ -59,8 +197,7 @@
 				<key>ActionParameters</key>
 				<dict>
 					<key>COMMAND_STRING</key>
-					<string>
-import sys
+					<string>import sys
 from avchd_rewrapper import wrap_to_mp4
 
 try:
@@ -75,7 +212,7 @@ try:
     print '%d file(s) rewrapped' % n
 
 except Exception as e:
-    print e.message
+    print str(e)
 </string>
 					<key>CheckedForUserDefaultShell</key>
 					<true/>
@@ -101,7 +238,7 @@ except Exception as e:
 				<key>Class Name</key>
 				<string>RunShellScriptAction</string>
 				<key>InputUUID</key>
-				<string>A2CB1A85-5906-45D2-9EA3-73D47418B3D5</string>
+				<string>8D084F32-AC0F-46BC-A3D7-41B5F203E3E8</string>
 				<key>Keywords</key>
 				<array>
 					<string>Shell</string>
@@ -111,9 +248,9 @@ except Exception as e:
 					<string>Unix</string>
 				</array>
 				<key>OutputUUID</key>
-				<string>0A995652-ACDF-4976-83FA-D7EF0496458E</string>
+				<string>22276E9C-6452-4AF6-883E-00848E9895D0</string>
 				<key>UUID</key>
-				<string>8A353ED0-AB88-43EE-ACEE-008E5F1A6494</string>
+				<string>919EA4BA-1F10-441F-9AF0-2A426826477B</string>
 				<key>UnlocalizedApplications</key>
 				<array>
 					<string>Automator</string>
@@ -186,12 +323,10 @@ except Exception as e:
 						<string>4</string>
 					</dict>
 				</dict>
-				<key>conversionLabel</key>
-				<integer>0</integer>
 				<key>isViewVisible</key>
 				<true/>
 				<key>location</key>
-				<string>526.500000:838.000000</string>
+				<string>654.500000:510.000000</string>
 				<key>nibPath</key>
 				<string>/System/Library/Automator/Run Shell Script.action/Contents/Resources/German.lproj/main.nib</string>
 			</dict>
@@ -225,7 +360,9 @@ except Exception as e:
 						<key>isPathPopUp</key>
 						<false/>
 						<key>selectedVariableUUID</key>
-						<string>291B8660-0ACA-4D6C-A92F-8234C4426D03</string>
+						<string>19DFD3DC-2BB3-44D7-9B6B-C6C3AC52F4A3</string>
+						<key>variableUUIDsInMenu</key>
+						<array/>
 					</dict>
 				</dict>
 				<key>AMProvides</key>
@@ -246,7 +383,7 @@ except Exception as e:
 				<key>ActionParameters</key>
 				<dict>
 					<key>variableUUID</key>
-					<string>291B8660-0ACA-4D6C-A92F-8234C4426D03</string>
+					<string>19DFD3DC-2BB3-44D7-9B6B-C6C3AC52F4A3</string>
 				</dict>
 				<key>BundleIdentifier</key>
 				<string>com.apple.Automator.Set_Value_of_Variable</string>
@@ -263,7 +400,7 @@ except Exception as e:
 				<key>Class Name</key>
 				<string>Set_Value_of_Variable</string>
 				<key>InputUUID</key>
-				<string>AEC2F1DA-5C6B-477D-BBA8-689EFC936216</string>
+				<string>06481B1D-FC40-4F68-8B62-3053FDA39BFD</string>
 				<key>Keywords</key>
 				<array>
 					<string>Variable</string>
@@ -273,9 +410,9 @@ except Exception as e:
 					<string>Speicher</string>
 				</array>
 				<key>OutputUUID</key>
-				<string>4BA522DA-628E-4603-B406-A2A01EC1F18A</string>
+				<string>7AAE2499-EE48-4372-8B2A-0EBBB07F22FF</string>
 				<key>UUID</key>
-				<string>EF9DAA0B-2D4C-4D9E-B47A-C32466B9757B</string>
+				<string>F400C634-88ED-42C0-9D33-816A9EF4C6D4</string>
 				<key>UnlocalizedApplications</key>
 				<array>
 					<string>Automator</string>
@@ -299,7 +436,7 @@ except Exception as e:
 				<key>isViewVisible</key>
 				<true/>
 				<key>location</key>
-				<string>526.500000:494.000000</string>
+				<string>654.500000:326.000000</string>
 				<key>nibPath</key>
 				<string>/System/Library/Automator/Set Value of Variable.action/Contents/Resources/Base.lproj/main.nib</string>
 			</dict>
@@ -330,11 +467,14 @@ except Exception as e:
 					<dict>
 						<key>tokenizedValue</key>
 						<array>
-							<string>$(291B8660-0ACA-4D6C-A92F-8234C4426D03)</string>
+							<string>$(19DFD3DC-2BB3-44D7-9B6B-C6C3AC52F4A3)</string>
 						</array>
 					</dict>
 					<key>subtitle</key>
-					<dict/>
+					<dict>
+						<key>tokenizedValue</key>
+						<array/>
+					</dict>
 					<key>title</key>
 					<dict>
 						<key>tokenizedValue</key>
@@ -357,7 +497,7 @@ except Exception as e:
 				<key>ActionParameters</key>
 				<dict>
 					<key>message</key>
-					<string>$(291B8660-0ACA-4D6C-A92F-8234C4426D03)</string>
+					<string>$(19DFD3DC-2BB3-44D7-9B6B-C6C3AC52F4A3)</string>
 					<key>subtitle</key>
 					<string></string>
 					<key>title</key>
@@ -377,16 +517,14 @@ except Exception as e:
 				</array>
 				<key>Class Name</key>
 				<string>AMDisplayNotificationAction</string>
-				<key>IgnoresInput</key>
-				<false/>
 				<key>InputUUID</key>
-				<string>7EFA540A-E392-4A8F-86E7-E8453176D905</string>
+				<string>B690854C-AA19-409E-837E-CDF93FC8E2AB</string>
 				<key>Keywords</key>
 				<array/>
 				<key>OutputUUID</key>
-				<string>D45FC605-A0AB-40D6-976B-DB09085AFDAC</string>
+				<string>A1CC1A01-433B-44D7-95A0-89BE0774A834</string>
 				<key>UUID</key>
-				<string>68E00115-D3C9-4898-BF29-FBCDFEEBA972</string>
+				<string>06C5A64C-64A0-45D5-B333-54B439014851</string>
 				<key>UnlocalizedApplications</key>
 				<array>
 					<string>Automator</string>
@@ -436,7 +574,7 @@ except Exception as e:
 				<key>isViewVisible</key>
 				<true/>
 				<key>location</key>
-				<string>526.500000:390.000000</string>
+				<string>654.500000:222.000000</string>
 				<key>nibPath</key>
 				<string>/System/Library/Automator/Display Notification.action/Contents/Resources/Base.lproj/main.nib</string>
 			</dict>
@@ -446,38 +584,55 @@ except Exception as e:
 	</array>
 	<key>connectors</key>
 	<dict>
-		<key>2FB230A0-3440-4DED-9B23-6D075641160C</key>
+		<key>104C3B8D-5056-4694-B4B0-6C594EEC625E</key>
 		<dict>
 			<key>from</key>
-			<string>EF9DAA0B-2D4C-4D9E-B47A-C32466B9757B - EF9DAA0B-2D4C-4D9E-B47A-C32466B9757B</string>
+			<string>F400C634-88ED-42C0-9D33-816A9EF4C6D4 - F400C634-88ED-42C0-9D33-816A9EF4C6D4</string>
 			<key>to</key>
-			<string>68E00115-D3C9-4898-BF29-FBCDFEEBA972 - 68E00115-D3C9-4898-BF29-FBCDFEEBA972</string>
+			<string>06C5A64C-64A0-45D5-B333-54B439014851 - 06C5A64C-64A0-45D5-B333-54B439014851</string>
 		</dict>
-		<key>50793F31-AF86-4E95-989F-24B8A627411D</key>
+		<key>968C063E-D762-4123-B790-9701201A7251</key>
 		<dict>
 			<key>from</key>
-			<string>8A353ED0-AB88-43EE-ACEE-008E5F1A6494 - 8A353ED0-AB88-43EE-ACEE-008E5F1A6494</string>
+			<string>2B916B88-83C4-4891-A278-6C054292FDF7 - 2B916B88-83C4-4891-A278-6C054292FDF7</string>
 			<key>to</key>
-			<string>EF9DAA0B-2D4C-4D9E-B47A-C32466B9757B - EF9DAA0B-2D4C-4D9E-B47A-C32466B9757B</string>
+			<string>919EA4BA-1F10-441F-9AF0-2A426826477B - 919EA4BA-1F10-441F-9AF0-2A426826477B</string>
+		</dict>
+		<key>BCB0383D-ADE0-4629-B8A6-E7540616EB6B</key>
+		<dict>
+			<key>from</key>
+			<string>919EA4BA-1F10-441F-9AF0-2A426826477B - 919EA4BA-1F10-441F-9AF0-2A426826477B</string>
+			<key>to</key>
+			<string>F400C634-88ED-42C0-9D33-816A9EF4C6D4 - F400C634-88ED-42C0-9D33-816A9EF4C6D4</string>
 		</dict>
 	</dict>
 	<key>variables</key>
 	<array>
 		<dict>
 			<key>UUID</key>
-			<string>291B8660-0ACA-4D6C-A92F-8234C4426D03</string>
+			<string>19DFD3DC-2BB3-44D7-9B6B-C6C3AC52F4A3</string>
 			<key>identifier</key>
 			<string>com.apple.Automator.Variable.Text</string>
 			<key>name</key>
 			<string>result</string>
 			<key>value</key>
-			<string></string>
+			<string>[Errno 17] File exists: '/Volumes/Macintosh-HD/Users/oliver/Desktop/20111029/mp4'</string>
 		</dict>
 	</array>
 	<key>workflowMetaData</key>
 	<dict>
+		<key>serviceApplicationBundleID</key>
+		<string>com.apple.finder</string>
+		<key>serviceApplicationPath</key>
+		<string>/System/Library/CoreServices/Finder.app</string>
+		<key>serviceInputTypeIdentifier</key>
+		<string>com.apple.Automator.fileSystemObject</string>
+		<key>serviceOutputTypeIdentifier</key>
+		<string>com.apple.Automator.nothing</string>
+		<key>serviceProcessesInput</key>
+		<integer>0</integer>
 		<key>workflowTypeIdentifier</key>
-		<string>com.apple.Automator.application</string>
+		<string>com.apple.Automator.servicesMenu</string>
 	</dict>
 </dict>
 </plist>
