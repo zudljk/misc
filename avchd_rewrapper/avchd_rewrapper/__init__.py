@@ -1,4 +1,4 @@
-from os import path, walk, stat, mkdir, remove
+from os import path, walk, stat, mkdir, remove, utime
 from subprocess import Popen, PIPE
 from string import upper
 from time import localtime
@@ -33,6 +33,8 @@ def wrap_as_mp4(mts_file, metadata, output_dir=None):
         so, se = Popen(args=params, stderr=PIPE).communicate()
         if len(se) > 0:
             raise RuntimeError(se)
+        s = stat(mts_file)
+        utime(mp4file, (s.st_atime, s.st_mtime))
     except Exception as e:
         raise RuntimeError('Call to ffmpeg failed: %s' % str(e))
 
