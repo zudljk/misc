@@ -43,16 +43,17 @@ def get_user_full_name(uid):
     return getpwuid(uid).pw_gecos
 
 
-def wrap_avchd_dir(avchd_dir):
+def wrap_avchd_dir(avchd_dir, output_dir=None):
     user = get_user_full_name(stat(avchd_dir).st_uid)
-    outdir = path.join(path.dirname(avchd_dir), "mp4")
+    if output_dir is None:
+        output_dir = path.join(path.dirname(avchd_dir), "mp4")
     title = path.basename(path.dirname(avchd_dir))
     for top, dirs, files in walk(path.join(avchd_dir, "BDMV", "STREAM")):
         for g in files:
-            wrap_mts_file(path.join(top, g), outdir, user, title)
+            wrap_mts_file(path.join(top, g), output_dir, user, title)
 
 
-def wrap_mts_file(mts_file, outputdir=None, user=None, title=None):
+def wrap_mts_file(mts_file, output_dir=None, user=None, title=None):
     if user is None:
         user = get_user_full_name(stat(mts_file).st_uid)
     if title is None:
@@ -72,12 +73,12 @@ def wrap_mts_file(mts_file, outputdir=None, user=None, title=None):
             "year": localtime(stat(mts_file).st_mtime).tm_year,
             "date": localtime(stat(mts_file).st_mtime).tm_year,
             "track": track + 1
-        }, outputdir)
+        }, output_dir)
     else:
         raise RuntimeError('%s is not an MTS file' % mts_file)
 
 
-def wrap_to_mp4(file_or_dir):
+def wrap_to_mp4(file_or_dir, output_dir=None):
     logger = logging.getLogger('avchd_rewrapper')
     logfilename = path.join(path.dirname(file_or_dir), 'avchd_rewrapper.log')
     logfile = logging.FileHandler(logfilename)
@@ -86,11 +87,11 @@ def wrap_to_mp4(file_or_dir):
     try:
         if path.isdir(file_or_dir):
             if path.basename(file_or_dir) == 'AVCHD':
-                wrap_avchd_dir(file_or_dir)
+                wrap_avchd_dir(file_or_dir, output_dir)
             else:
                 raise RuntimeError('%s is not an AVCHD dir' % file_or_dir)
         else:
-            wrap_mts_file(file_or_dir)
+            wrap_mts_file(file_or_dir, output_dir)
         if path.getsize(logfilename) == 0:
             remove(logfilename)
     except Exception as e:

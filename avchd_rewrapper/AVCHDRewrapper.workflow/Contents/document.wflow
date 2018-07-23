@@ -20,6 +20,243 @@
 					<key>Optional</key>
 					<true/>
 					<key>Types</key>
+					<array>
+						<string>com.apple.cocoa.path</string>
+					</array>
+				</dict>
+				<key>AMActionVersion</key>
+				<string>1.2.1</string>
+				<key>AMApplication</key>
+				<array>
+					<string>Finder</string>
+				</array>
+				<key>AMParameterProperties</key>
+				<dict>
+					<key>defaultLocation</key>
+					<dict>
+						<key>isPathPopUp</key>
+						<true/>
+						<key>variableUUIDsInMenu</key>
+						<array/>
+					</dict>
+					<key>granularity</key>
+					<dict/>
+					<key>multipleSelection</key>
+					<dict/>
+					<key>promptMessage</key>
+					<dict>
+						<key>tokenizedValue</key>
+						<array>
+							<string>Select output folder</string>
+						</array>
+					</dict>
+				</dict>
+				<key>AMProvides</key>
+				<dict>
+					<key>Container</key>
+					<string>List</string>
+					<key>Types</key>
+					<array>
+						<string>com.apple.cocoa.path</string>
+					</array>
+				</dict>
+				<key>ActionBundlePath</key>
+				<string>/System/Library/Automator/Ask for Finder Items.action</string>
+				<key>ActionName</key>
+				<string>Nach Finder-Objekten fragen</string>
+				<key>ActionParameters</key>
+				<dict>
+					<key>defaultLocation</key>
+					<string>~/Desktop</string>
+					<key>granularity</key>
+					<integer>1</integer>
+					<key>multipleSelection</key>
+					<false/>
+					<key>promptMessage</key>
+					<string>Select output folder</string>
+				</dict>
+				<key>BundleIdentifier</key>
+				<string>com.apple.Automator.AskForFinderItems</string>
+				<key>CFBundleVersion</key>
+				<string>1.2.1</string>
+				<key>CanShowSelectedItemsWhenRun</key>
+				<true/>
+				<key>CanShowWhenRun</key>
+				<false/>
+				<key>Category</key>
+				<array>
+					<string>AMCategoryFilesAndFolders</string>
+				</array>
+				<key>Class Name</key>
+				<string>AMAskForFinderItemsAction</string>
+				<key>InputUUID</key>
+				<string>70A05C10-12DE-4534-9477-71FB3CC5284B</string>
+				<key>Keywords</key>
+				<array>
+					<string>Suchen</string>
+					<string>Objekt</string>
+					<string>Datei</string>
+					<string>Ordner</string>
+					<string>Nachfragen</string>
+					<string>Auswählen</string>
+					<string>Dialog</string>
+				</array>
+				<key>OutputUUID</key>
+				<string>F4C18D93-CB0F-483F-9296-77391ACA17A4</string>
+				<key>UUID</key>
+				<string>8EB71C62-A721-400E-BFED-4F310768A60E</string>
+				<key>UnlocalizedApplications</key>
+				<array>
+					<string>Finder</string>
+				</array>
+				<key>arguments</key>
+				<dict>
+					<key>0</key>
+					<dict>
+						<key>default value</key>
+						<false/>
+						<key>name</key>
+						<string>multipleSelection</string>
+						<key>required</key>
+						<string>0</string>
+						<key>type</key>
+						<string>0</string>
+						<key>uuid</key>
+						<string>0</string>
+					</dict>
+					<key>1</key>
+					<dict>
+						<key>default value</key>
+						<integer>0</integer>
+						<key>name</key>
+						<string>granularity</string>
+						<key>required</key>
+						<string>0</string>
+						<key>type</key>
+						<string>0</string>
+						<key>uuid</key>
+						<string>1</string>
+					</dict>
+					<key>2</key>
+					<dict>
+						<key>default value</key>
+						<string>~/Desktop</string>
+						<key>name</key>
+						<string>defaultLocation</string>
+						<key>required</key>
+						<string>0</string>
+						<key>type</key>
+						<string>0</string>
+						<key>uuid</key>
+						<string>2</string>
+					</dict>
+					<key>3</key>
+					<dict>
+						<key>default value</key>
+						<string>Wählen Sie ein Finder-Objekt aus:</string>
+						<key>name</key>
+						<string>promptMessage</string>
+						<key>required</key>
+						<string>0</string>
+						<key>type</key>
+						<string>0</string>
+						<key>uuid</key>
+						<string>3</string>
+					</dict>
+				</dict>
+				<key>isViewVisible</key>
+				<true/>
+				<key>location</key>
+				<string>646.500000:908.000000</string>
+				<key>nibPath</key>
+				<string>/System/Library/Automator/Ask for Finder Items.action/Contents/Resources/Base.lproj/main.nib</string>
+			</dict>
+			<key>isViewVisible</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>action</key>
+			<dict>
+				<key>AMAccepts</key>
+				<dict>
+					<key>Container</key>
+					<string>List</string>
+					<key>Optional</key>
+					<false/>
+					<key>Types</key>
+					<array>
+						<string>com.apple.cocoa.path</string>
+					</array>
+				</dict>
+				<key>AMActionVersion</key>
+				<string>1.1.1</string>
+				<key>AMApplication</key>
+				<array>
+					<string>Finder</string>
+				</array>
+				<key>AMParameterProperties</key>
+				<dict/>
+				<key>AMProvides</key>
+				<dict>
+					<key>Container</key>
+					<string>List</string>
+					<key>Types</key>
+					<array>
+						<string>com.apple.cocoa.path</string>
+					</array>
+				</dict>
+				<key>AMRequiredResources</key>
+				<array/>
+				<key>ActionBundlePath</key>
+				<string>/System/Library/Automator/Reveal Finder Items.action</string>
+				<key>ActionName</key>
+				<string>Finder-Objekte zeigen</string>
+				<key>ActionParameters</key>
+				<dict/>
+				<key>BundleIdentifier</key>
+				<string>com.apple.Automator.Reveal_Finder_Items</string>
+				<key>CFBundleVersion</key>
+				<string>1.1.1</string>
+				<key>CanShowSelectedItemsWhenRun</key>
+				<false/>
+				<key>CanShowWhenRun</key>
+				<false/>
+				<key>Category</key>
+				<array>
+					<string>AMCategoryFilesAndFolders</string>
+				</array>
+				<key>Class Name</key>
+				<string>AMRevealFinderItemsAction</string>
+				<key>InputUUID</key>
+				<string>F9FD5C4C-8D23-4034-816A-6CFDE45E80C8</string>
+				<key>Keywords</key>
+				<array>
+					<string>Anzeigen</string>
+					<string>Ordner</string>
+					<string>Datei</string>
+				</array>
+				<key>OutputUUID</key>
+				<string>D23684F4-A231-4B51-BCE7-FE36737D9815</string>
+				<key>UUID</key>
+				<string>FF46A14F-C1F5-42C1-90E6-1948EDAD60D0</string>
+				<key>UnlocalizedApplications</key>
+				<array>
+					<string>Finder</string>
+				</array>
+				<key>arguments</key>
+				<dict/>
+			</dict>
+		</dict>
+		<dict>
+			<key>action</key>
+			<dict>
+				<key>AMAccepts</key>
+				<dict>
+					<key>Container</key>
+					<string>List</string>
+					<key>Optional</key>
+					<true/>
+					<key>Types</key>
 					<array/>
 				</dict>
 				<key>AMActionVersion</key>
@@ -141,7 +378,7 @@
 				<key>isViewVisible</key>
 				<true/>
 				<key>location</key>
-				<string>654.500000:700.000000</string>
+				<string>646.500000:687.000000</string>
 				<key>nibPath</key>
 				<string>/System/Library/Automator/Display Notification.action/Contents/Resources/Base.lproj/main.nib</string>
 			</dict>
@@ -201,15 +438,21 @@
 from avchd_rewrapper import wrap_to_mp4
 
 try:
-    n = 0
-
+    params = []
     for f in sys.stdin:
-        n += 1
-        wrap_to_mp4(f.strip())
+        params.append(f.strip())
 
-    assert n &gt; 0, 'No files given'
+    assert params, 'No input files and no output dir given'
 
-    print '%d file(s) rewrapped' % n
+    output_dir = params[-1]
+    params = params[0:-1]
+
+    assert params, 'No input files given'
+
+    for f in params:
+        wrap_to_mp4(f, output_dir)
+
+    print '%d file(s) rewrapped' % len(params)
 
 except Exception as e:
     print str(e)
@@ -326,7 +569,7 @@ except Exception as e:
 				<key>isViewVisible</key>
 				<true/>
 				<key>location</key>
-				<string>654.500000:510.000000</string>
+				<string>646.500000:497.000000</string>
 				<key>nibPath</key>
 				<string>/System/Library/Automator/Run Shell Script.action/Contents/Resources/German.lproj/main.nib</string>
 			</dict>
@@ -436,7 +679,7 @@ except Exception as e:
 				<key>isViewVisible</key>
 				<true/>
 				<key>location</key>
-				<string>654.500000:326.000000</string>
+				<string>646.500000:369.000000</string>
 				<key>nibPath</key>
 				<string>/System/Library/Automator/Set Value of Variable.action/Contents/Resources/Base.lproj/main.nib</string>
 			</dict>
@@ -574,7 +817,7 @@ except Exception as e:
 				<key>isViewVisible</key>
 				<true/>
 				<key>location</key>
-				<string>654.500000:222.000000</string>
+				<string>646.500000:209.000000</string>
 				<key>nibPath</key>
 				<string>/System/Library/Automator/Display Notification.action/Contents/Resources/Base.lproj/main.nib</string>
 			</dict>
@@ -584,26 +827,40 @@ except Exception as e:
 	</array>
 	<key>connectors</key>
 	<dict>
-		<key>104C3B8D-5056-4694-B4B0-6C594EEC625E</key>
+		<key>30187837-99FD-4276-AC84-F247236E9944</key>
 		<dict>
 			<key>from</key>
-			<string>F400C634-88ED-42C0-9D33-816A9EF4C6D4 - F400C634-88ED-42C0-9D33-816A9EF4C6D4</string>
+			<string>8EB71C62-A721-400E-BFED-4F310768A60E - 8EB71C62-A721-400E-BFED-4F310768A60E</string>
 			<key>to</key>
-			<string>06C5A64C-64A0-45D5-B333-54B439014851 - 06C5A64C-64A0-45D5-B333-54B439014851</string>
+			<string>FF46A14F-C1F5-42C1-90E6-1948EDAD60D0 - FF46A14F-C1F5-42C1-90E6-1948EDAD60D0</string>
 		</dict>
-		<key>968C063E-D762-4123-B790-9701201A7251</key>
+		<key>659B62A8-B1BE-4CCD-898A-E128C4CB412F</key>
+		<dict>
+			<key>from</key>
+			<string>FF46A14F-C1F5-42C1-90E6-1948EDAD60D0 - FF46A14F-C1F5-42C1-90E6-1948EDAD60D0</string>
+			<key>to</key>
+			<string>2B916B88-83C4-4891-A278-6C054292FDF7 - 2B916B88-83C4-4891-A278-6C054292FDF7</string>
+		</dict>
+		<key>8FB348C9-D815-4F9A-9C27-6DC0B99A250B</key>
 		<dict>
 			<key>from</key>
 			<string>2B916B88-83C4-4891-A278-6C054292FDF7 - 2B916B88-83C4-4891-A278-6C054292FDF7</string>
 			<key>to</key>
 			<string>919EA4BA-1F10-441F-9AF0-2A426826477B - 919EA4BA-1F10-441F-9AF0-2A426826477B</string>
 		</dict>
-		<key>BCB0383D-ADE0-4629-B8A6-E7540616EB6B</key>
+		<key>CF727967-333F-46F6-9A6B-70B075472DAB</key>
 		<dict>
 			<key>from</key>
 			<string>919EA4BA-1F10-441F-9AF0-2A426826477B - 919EA4BA-1F10-441F-9AF0-2A426826477B</string>
 			<key>to</key>
 			<string>F400C634-88ED-42C0-9D33-816A9EF4C6D4 - F400C634-88ED-42C0-9D33-816A9EF4C6D4</string>
+		</dict>
+		<key>EF357AE6-67FD-43FA-BCEC-64E10B66A524</key>
+		<dict>
+			<key>from</key>
+			<string>F400C634-88ED-42C0-9D33-816A9EF4C6D4 - F400C634-88ED-42C0-9D33-816A9EF4C6D4</string>
+			<key>to</key>
+			<string>06C5A64C-64A0-45D5-B333-54B439014851 - 06C5A64C-64A0-45D5-B333-54B439014851</string>
 		</dict>
 	</dict>
 	<key>variables</key>
@@ -616,7 +873,7 @@ except Exception as e:
 			<key>name</key>
 			<string>result</string>
 			<key>value</key>
-			<string>[Errno 17] File exists: '/Volumes/Macintosh-HD/Users/oliver/Desktop/20111029/mp4'</string>
+			<string>/Volumes/Macintosh-HD/Users/oliver/Desktop/Reaktionen/LVY2jhM.gif is not an MTS file</string>
 		</dict>
 	</array>
 	<key>workflowMetaData</key>
