@@ -80,7 +80,11 @@ def wrap_mts_file(mts_file, output_dir=None, user=None, title=None):
 
 def wrap_to_mp4(file_or_dir, output_dir=None):
     logger = logging.getLogger('avchd_rewrapper')
-    logfilename = path.join(path.dirname(file_or_dir), 'avchd_rewrapper.log')
+    logdir = output_dir
+    if not logdir:
+        logdir = path.dirname(file_or_dir)
+
+    logfilename = path.join(logdir, 'avchd_rewrapper.log')
     logfile = logging.FileHandler(logfilename)
     logger.addHandler(logfile)
 
