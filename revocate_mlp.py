@@ -1,12 +1,20 @@
 #!/usr/bin/env python3
 
-from relatorio.templates.opendocument import Template
+from os import path
+from os import system
+from os import environ
 import sys
-import os
 from datetime import date
 
+from relatorio.templates.opendocument import Template
 
-def usage():
+
+libreOfficePath = path.join("/", "Applications", "LibreOffice.app", "Contents", "MacOS", "soffice")
+documents = path.join(environ['HOME'], "Documents", "Dropbox")
+outputDir = path.join(documents, "Inbox", "PDF", "4 - manuell prüfen")
+contracts = sys.argv[1:]
+
+if len(contracts) < 1 or sys.argv[1] == "-h" or sys.argv[1] == "--help":
     print("Usage:")
     print(sys.argv[0] + " contractnumber...")
     print("""Revocate premium rise for MLP contract
@@ -14,12 +22,6 @@ def usage():
 Options:
 -h, --help\tShow help
 """)
-
-
-contracts = sys.argv[1:]
-
-if len(contracts) < 1:
-    usage()
     sys.exit(1)
 
 contractData = {
@@ -35,19 +37,21 @@ templateData = {
     'contracts': []
 }
 
-outputFile = "mlp-erhoehung-widerspruch_"+date.today().strftime("%Y%m")
+outputFile = "MLP"
 
 for contract in contracts:
     c = {'key': contract, 'name': contractData[contract]}
     templateData['contracts'].append(c)
     outputFile = outputFile + "_" + contract
 
-outputFile += ".odt"
+outputFile = outputFile+"_"+date.today().strftime("%Y%m%d")
 
-basic = Template(source='', filepath=os.environ['HOME'] +
-                                     '/Documents/Dropbox/Org/versicherung/mlp-erhoehung-widerspruch-template.odt')
+basic = Template(source='', filepath=path.join(documents, 'versicherung', 'mlp-erhoehung-widerspruch-template.odt'))
 basic_generated = basic.generate(o=templateData).render()
 
-open(outputFile, 'wb').write(basic_generated.getvalue())
+open(outputFile+".odt", 'wb').write(basic_generated.getvalue())
 
-os.system("")
+system(libreOfficePath + " --convert-to pdf --outdir "+outputDir+" "+outputFile+".odt")
+
+system("open "+path.join(outputDir, outputFile+".odt"))
+system("open https://web.de")
