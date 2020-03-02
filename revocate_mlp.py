@@ -3,6 +3,7 @@
 from os import path
 from os import system
 from os import environ
+from os import remove
 import sys
 from datetime import date
 
@@ -44,14 +45,16 @@ for contract in contracts:
     templateData['contracts'].append(c)
     outputFile = outputFile + "_" + contract
 
-outputFile = outputFile+"_"+date.today().strftime("%Y%m%d")
+outputFile = outputFile+"_"+date.today().strftime("%Y%m%d")+"_ErhoehungWiderspruch"
 
-basic = Template(source='', filepath=path.join(documents, 'versicherung', 'mlp-erhoehung-widerspruch-template.odt'))
+basic = Template(source='', filepath=path.join(documents, 'Org', 'versicherung', 'mlp-erhoehung-widerspruch-template.odt'))
 basic_generated = basic.generate(o=templateData).render()
 
 open(outputFile+".odt", 'wb').write(basic_generated.getvalue())
 
-system(libreOfficePath + " --convert-to pdf --outdir "+outputDir+" "+outputFile+".odt")
+system(libreOfficePath + ' --convert-to pdf --outdir "'+outputDir+'" '+outputFile+'.odt')
 
-system("open "+path.join(outputDir, outputFile+".odt"))
+remove(outputFile+".odt")
+
+system('open "'+path.join(outputDir, outputFile+'.pdf')+'"')
 system("open https://web.de")
