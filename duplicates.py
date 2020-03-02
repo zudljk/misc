@@ -9,14 +9,14 @@ import datetime
 import hashlib
 
 def usage():
-    print "Usage:"
-    print sys.argv[0]+" [options] dir..."
-    print """Find duplicate files
+    print("Usage:")
+    print(sys.argv[0]+" [options] dir...")
+    print("""Find duplicate files
 
 Options:
 -h, --help\tShow help
 -t, --ignore-mtime\tIgnore mtime when comparing files
-"""
+""")
 
 def handle(exception, item):
     sys.stderr.write("Error {}: {}: {}\n".format(exception.errno, exception.strerror, item))
@@ -81,7 +81,7 @@ def duplicatesFound(pot, destMap, methods):
                 for file in files:
                     found = True
                     s = os.stat(file)
-                    print "{}\t{}k\t{}\t{}".format(file, s.st_size / 1024, str(datetime.datetime.fromtimestamp(s.st_mtime)), fp)
+                    print("{}\t{}k\t{}\t{}".format(file, s.st_size / 1024, str(datetime.datetime.fromtimestamp(s.st_mtime)), fp))
     return found
 
 fpmethod = [filesize,mtime,hash]
