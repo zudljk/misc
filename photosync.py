@@ -22,20 +22,28 @@ class PhotoRsync(Tk):
         Tk.__init__(self, *args, **kwargs)
         self.title("Syncing ...")
 
-        self.geometry('400x205')
-        self.lbl = Label(self, text="Hello", anchor="nw", justify=LEFT, borderwidth=2)
-        self.lbl.place(x=15, y=10)
-        self.lbl.pack()
+        self.geometry('600x250')
         style = Style()
         style.configure("black.Horizontal.TProgressbar", background='blue', padx=20, justify=CENTER)
+
+        self.lbl = Label(self, text="Hello", anchor="nw", justify=LEFT, borderwidth=2)
         self.progressbar = Progressbar(self, length=370, mode="determinate", style="black.Horizontal.TProgressbar")
-        self.progressbar.place(x=15, y=40)
-        self.progressbar.pack()
-        self.output = Text(self, height=8, width=80, bg="seashell3")
-        self.output.pack()
-        self.ok = Button(self, text="Ok", command=self.destroy, state=DISABLED)
-        self.ok.place(x=180, y=60)
-        self.ok.pack()
+        self.frame = Frame(self)
+        self.output = Text(self.frame, height=8, width=280, bg="seashell3", wrap=NONE)
+        self.vscrollb = Scrollbar(self.frame, command=self.output.yview)
+        self.hscrollb = Scrollbar(self, command=self.output.xview, orient=HORIZONTAL)
+        self.ok = Button(self, text="Ok", command=self.destroy, state=DISABLED, height=1, padx=10, pady=5)
+
+        self.output['yscrollcommand']=self.vscrollb.set
+        self.output['xscrollcommand']=self.hscrollb.set
+
+        self.lbl.pack(side=TOP,fill=X)
+        self.progressbar.pack(side=TOP,fill=X)
+        self.vscrollb.pack(side=RIGHT,fill=Y)
+        self.output.pack(side=TOP,fill=BOTH)
+        self.frame.pack(side=TOP,fill=Y)
+        self.hscrollb.pack(side=TOP,fill=X)
+        self.ok.pack(side=BOTTOM)
 
     def start(self):
         self.progressbar['value'] = 0
@@ -45,12 +53,18 @@ class PhotoRsync(Tk):
 
     def copy(self, sources):
         year = sources.pop(0)
-        self.lbl["text"] = f"{sourcePath}/{year}"
-        with popen(f"{rsyncTemplate} {year} {targetPath}/{year}") as f:
+        source = path.join(sourcePath, year)
+        target = path.join(targetPath,year)
+        command = f"{rsyncTemplate} {year} {target}"
+        self.lbl["text"] = f"{source}"
+        self.output.insert(END, command)
+        with popen(command) as f:
             line = f.readline()
             while line:
                 self.output.insert(END, line)
                 line = f.readline()
+                self.output.see(END)
+        self.output.see(END)
         self.progressbar['value'] += 1
         if len(sources) > 0:
             self.after(100, self.copy, sources)
