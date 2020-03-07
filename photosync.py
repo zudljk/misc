@@ -1,20 +1,36 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 from tkinter import *
 from tkinter.ttk import Progressbar
 from tkinter.ttk import Style
 from os import path
 from os import listdir
 from os import popen
+from os import chmod
+from os import system
+from stat import *
+from shutil import copy
 
-rsyncTemplate = "echo /usr/local/bin/rsync --archive --verbose --delete-after --exclude .Doc* --exclude .fs* --exclude .Spot* --exclude .Trash* --exclude .Temp* --exclude Backup"
+storage1 = "/Volumes/SeagateUSB3/Bilder"
+storage2 = "/Volumes/SeagateExp/Bilder"
+
+rsyncTemplate = "echo /usr/local/bin/rsync --archive --verbose --delete-after --exclude .Doc* " \
+                "--exclude .fs* --exclude .Spot* --exclude .Trash* --exclude .Temp* --exclude Backup"
+
 sourcePath = path.dirname(path.realpath(__file__))
-targetPath = "/Volumes/SeagateExp/Bilder"
+targetPath = storage2
 
 if sourcePath.startswith(targetPath):
-    targetPath = targetPath.replace(old="SeagateExp", new="SeagateUSB3")
+    targetPath = storage1
+elif not sourcePath.startswith(storage1):
+    copy(path.realpath(__file__), path.join(storage1, "photosync.command"))
+    copy(path.realpath(__file__), path.join(storage2, "photosync.command"))
+    mode = S_IXUSR + S_IRUSR + S_IWUSR + S_IRGRP + S_IXGRP + S_IROTH + S_IXOTH
+    chmod(path.join(storage1, "photosync.command"), mode)
+    chmod(path.join(storage2, "photosync.command"), mode)
+    system(path.join(storage1, "photosync.command"))
+    exit(0)
 
 years = listdir(sourcePath)
-
 
 class PhotoRsync(Tk):
 
@@ -34,15 +50,15 @@ class PhotoRsync(Tk):
         self.hscrollb = Scrollbar(self, command=self.output.xview, orient=HORIZONTAL)
         self.ok = Button(self, text="Ok", command=self.destroy, state=DISABLED, height=1, padx=10, pady=5)
 
-        self.output['yscrollcommand']=self.vscrollb.set
-        self.output['xscrollcommand']=self.hscrollb.set
+        self.output['yscrollcommand'] = self.vscrollb.set
+        self.output['xscrollcommand'] = self.hscrollb.set
 
-        self.lbl.pack(side=TOP,fill=X)
-        self.progressbar.pack(side=TOP,fill=X)
-        self.vscrollb.pack(side=RIGHT,fill=Y)
-        self.output.pack(side=TOP,fill=BOTH)
-        self.frame.pack(side=TOP,fill=Y)
-        self.hscrollb.pack(side=TOP,fill=X)
+        self.lbl.pack(side=TOP, fill=X)
+        self.progressbar.pack(side=TOP, fill=X)
+        self.vscrollb.pack(side=RIGHT, fill=Y)
+        self.output.pack(side=TOP, fill=BOTH)
+        self.frame.pack(side=TOP, fill=Y)
+        self.hscrollb.pack(side=TOP, fill=X)
         self.ok.pack(side=BOTTOM)
 
     def start(self):
@@ -54,7 +70,7 @@ class PhotoRsync(Tk):
     def copy(self, sources):
         year = sources.pop(0)
         source = path.join(sourcePath, year)
-        target = path.join(targetPath,year)
+        target = path.join(targetPath, year)
         command = f"{rsyncTemplate} {year} {target}"
         self.lbl["text"] = f"{source}"
         self.output.insert(END, command)
