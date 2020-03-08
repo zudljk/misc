@@ -2,7 +2,7 @@
 from tkinter import *
 from tkinter.ttk import Progressbar
 from tkinter.ttk import Style
-from os import path
+from os import path, linesep
 from glob import glob
 from os import popen
 from os import chmod
@@ -16,7 +16,7 @@ from threading import Thread
 storage1 = "/Volumes/SeagateUSB3/Bilder"
 storage2 = "/Volumes/SeagateExp/Bilder"
 
-rsyncTemplate = "echo /usr/local/bin/rsync --archive --verbose --delete-after --exclude .Doc* " \
+rsyncTemplate = "/usr/local/bin/rsync --archive --itemize-changes --verbose --delete-after --exclude .Doc* " \
                 "--exclude .fs* --exclude .Spot* --exclude .Trash* --exclude .Temp* --exclude Backup"
 
 sourcePath = path.dirname(path.realpath(__file__))
@@ -94,6 +94,7 @@ class RsyncThread:
      Launch the main part of the GUI and the worker thread. periodicCall and
      endApplication could reside in the GUI part, but putting them here
      means that you have all the thread controls in a single place.
+     See also: https://www.oreilly.com/library/view/python-cookbook/0596001673/ch09s07.html
      """
 
     def __init__(self, master):
@@ -126,7 +127,8 @@ class RsyncThread:
         self.gui.process_incoming()
         if self.running:
             self.master.after(200, self.periodic_call)
-        self.master.destroy()
+        else:
+            self.master.destroy()
 
     def worker_thread1(self):
         """
@@ -141,13 +143,13 @@ class RsyncThread:
             self.queue.put({"key": "SRC", "value": source})
 
             command = f"{rsyncTemplate} {year} {target}"
-            self.queue.put({"key": "CMD", "value": command})
+            self.queue.put({"key": "CMD", "value": command+linesep})
             with popen(command) as f:
                 line = f.readline()
                 while line:
                     self.queue.put({"key": "OUT", "value": line})
                     line = f.readline()
-        self.end_application()
+        self.queue.put({"key": "END", "value": None})
 
     def end_application(self):
         self.running = 0
