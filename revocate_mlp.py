@@ -11,7 +11,7 @@ from relatorio.templates.opendocument import Template
 
 
 libreOfficePath = path.join("/", "Applications", "LibreOffice.app", "Contents", "MacOS", "soffice")
-documents = path.join(environ['HOME'], "Documents", "Dropbox")
+documents = path.join(environ['HOME'], "Documents")
 outputDir = path.join(documents, "Inbox", "PDF", "4 - manuell prüfen")
 contracts = sys.argv[1:]
 
