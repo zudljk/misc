@@ -103,7 +103,7 @@ while True:
         else:
             print(f"Projekt '{project.name}' existiert bereits in Clockify.")
 
-    print("Projektsynchronisation abgeschlossen.")
+    print("Projektsynchronisation abgeschlossen.", flush=True)
 
     if NO_BACKGROUND:
         break
